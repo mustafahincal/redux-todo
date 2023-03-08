@@ -40,6 +40,19 @@ export const todosSlice = createSlice({
     },
   },
 });
+
+export const selectTodoItems = (state: any) => state.todos.items;
+export const selectActiveFilter = (state: any) => state.todos.activeFilter;
+export const selectFilteredTodoItems = (state: any) => {
+  if (state.todos.activeFilter === "all") {
+    return state.todos.items;
+  }
+  return state.todos.items.filter((todo: Todo) =>
+    state.todos.activeFilter === "active"
+      ? todo.completed === false
+      : todo.completed === true
+  );
+};
 export const {
   addTodo,
   toggleActive,
