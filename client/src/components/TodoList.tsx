@@ -1,31 +1,35 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../redux/store";
 import {
   deleteTodo,
+  getTodosAsync,
   selectFilteredTodoItems,
   toggleActive,
 } from "../redux/todos/todosSlice";
 import { Todo } from "../types/Todo";
+import Error from "./Error";
+import Loading from "./Loading";
 
 // let filteredTodos :Todo[] = [];
 const TodoList = () => {
   // const { items, activeFilter } = useSelector((state: any) => state.todos);
-  const dispatch = useDispatch();
-
-  const filteredTodos = useSelector(selectFilteredTodoItems);
-
+  const dispatch = useDispatch<AppDispatch>();
+  const filteredTodos: Todo[] = useSelector(selectFilteredTodoItems);
   const handleDeleteTodo = (item: Todo) => {
     if (window.confirm("are you sure about that?")) dispatch(deleteTodo(item));
   };
 
-  /* if (activeFilter !== "all") {
-    filteredTodos = items.filter((todo: Todo) =>
-      activeFilter === "active"
-        ? todo.completed === false
-        : todo.completed === true
-    );
-  } else {
-    filteredTodos = items;
-  } */
+  useEffect(() => {
+    dispatch(getTodosAsync());
+  }, [dispatch]);
+
+  const isLoading = useSelector((state: any) => state.todos.isLoading);
+  const error = useSelector((state: any) => state.todos.error);
+  let test = useSelector((state: any) => state.todos.test);
+
+  if (isLoading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
     <ul className="todo-list">

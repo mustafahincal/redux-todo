@@ -9,7 +9,7 @@ import { Todo } from "../types/Todo";
 
 const ContentFooter = () => {
   // const items = useSelector((state: any) => state.todos.items);
-  const items = useSelector(selectTodoItems);
+  const items: Todo[] = useSelector(selectTodoItems);
   // const activeFilter = useSelector((state: any) => state.todos.activeFilter);
   const activeFilter = useSelector(selectActiveFilter);
 
