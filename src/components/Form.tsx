@@ -8,8 +8,7 @@ const Form = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-
-    dispatch(addTodo({ title }));
+    dispatch(addTodo({ title })); // only send the title to the action, not the whole object because the action will create the id and completed properties
   };
   return (
     <form onSubmit={handleSubmit}>
