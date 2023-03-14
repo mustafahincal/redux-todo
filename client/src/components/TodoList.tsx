@@ -5,7 +5,7 @@ import {
   deleteTodo,
   getTodosAsync,
   selectFilteredTodoItems,
-  toggleActive,
+  toggleTodoAsync,
 } from "../redux/todos/todosSlice";
 import { Todo } from "../types/Todo";
 import Error from "./Error";
@@ -37,7 +37,11 @@ const TodoList = () => {
         <li key={item.id} className={item.completed ? "completed" : ""}>
           <div className="view">
             <input
-              onChange={() => dispatch(toggleActive(item))}
+              onChange={() =>
+                dispatch(
+                  toggleTodoAsync({ id: item.id, completed: !item.completed })
+                )
+              }
               className="toggle"
               type="checkbox"
               checked={item.completed}

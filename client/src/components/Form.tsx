@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/todos/todosSlice";
+import { addTodoAsync } from "../redux/todos/todosSlice";
 const Form = () => {
   const [title, setTitle] = useState<string>("");
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    dispatch(addTodo({ title })); // only send the title to the action, not the whole object because the action will create the id and completed properties
+    await dispatch(addTodoAsync({ title })); // only send the title to the action, not the whole object because the action will create the id and completed properties
+    setTitle("");
   };
   return (
     <form onSubmit={handleSubmit}>
       <input
+        // disabled={isLoading}
         type="text"
         className="new-todo"
         placeholder="What needs to be done?"
