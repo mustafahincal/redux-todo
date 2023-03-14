@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodoAsync } from "../redux/todos/todosSlice";
+import { addTodoAsync } from "../redux/todos/services";
 const Form = () => {
   const [title, setTitle] = useState<string>("");
 

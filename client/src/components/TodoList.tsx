@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import {
-  deleteTodo,
+  deleteTodoAsync,
   getTodosAsync,
-  selectFilteredTodoItems,
   toggleTodoAsync,
-} from "../redux/todos/todosSlice";
+} from "../redux/todos/services";
+import { selectFilteredTodoItems } from "../redux/todos/todosSlice";
 import { Todo } from "../types/Todo";
 import Error from "./Error";
 import Loading from "./Loading";
@@ -17,7 +17,8 @@ const TodoList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const filteredTodos: Todo[] = useSelector(selectFilteredTodoItems);
   const handleDeleteTodo = (item: Todo) => {
-    if (window.confirm("are you sure about that?")) dispatch(deleteTodo(item));
+    if (window.confirm("are you sure about that?"))
+      dispatch(deleteTodoAsync(item.id));
   };
 
   useEffect(() => {
